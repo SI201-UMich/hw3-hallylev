@@ -50,7 +50,7 @@ class CouponDispenser:
             str
         """
         # TODO: Implement per instructions
-        pass
+        
 
     def issue_coupon(self, name):
 
@@ -82,7 +82,7 @@ class CouponDispenser:
             str: message as described above
         """
         # TODO: Implement per instructions
-        pass
+        
 
     def distribute_session(self):
         """
@@ -100,8 +100,28 @@ class CouponDispenser:
         Reminder: Use lists only (no dictionaries).
         """
         # TODO: Implement per instructions 
-        pass
-
+        round_number = 1  
+        while True: 
+            user_input: f" Round {round_number} - Enter a name (or a comma-seperated list), or type 'show' or 'exit': "  
+            if user_input == "exit":
+                 print("Goodbye!")
+                 break 
+            if user_input == "show": 
+                 for i in range(len(self.customer_roster)):
+                     name = self.customer_roster[i]
+                     coupon = self.coupon_cards[self.issued_indices[i]]
+                     print(f"{name}: {coupon}") 
+            else: 
+                 pieces = user_input.split(",") 
+                 for p in pieces: 
+                     stripped_text = p.strip() 
+                     if stripped_text == "": 
+                        continue 
+        self.issue_coupon(name)
+        round_number += 
+            
+            
+                 
     def tally_distribution(self):
         """
         Extra credit:
