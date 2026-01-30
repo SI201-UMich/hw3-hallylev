@@ -37,6 +37,11 @@ class CouponDispenser:
         self.coupon_cards = coupon_cards
 
     def __str__(self):
+        if not self.coupon_cards: 
+            return ""
+        else: 
+            return "|".join(self.coupon_cards)
+        
         """
         Return a single string with all coupons in coupon_cards joined by pipes ('|').
         If coupon_cards is empty, return an empty string "".
