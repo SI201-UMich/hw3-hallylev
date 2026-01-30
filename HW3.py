@@ -34,7 +34,9 @@ class CouponDispenser:
         """
         # TODO: Implement per instructions
         
-        self.coupon_cards = coupon_cards
+        self.coupon_cards = coupon_cards 
+        self.customer_roster = []
+        self.issued_indices = []
 
     def __str__(self):
         if not self.coupon_cards: 
@@ -54,19 +56,19 @@ class CouponDispenser:
 
     def issue_coupon(self, name):
 
-        if len(self.coupon_cards) == 0: 
-            return "The box is empty"  
+        if not self.coupon_cards: 
+            return "The box is empty."  
         
         if name in self.customer_roster: 
             customer_index = self.customer_roster.index(name)
-            customer_coupon = self.coupon_cards(self.issued_indices(customer_index))
+            customer_coupon = self.coupon_cards[self.issued_indices[customer_index]]
             return f"That name already has a coupon: {customer_coupon}" 
         
-        if name not in self.customer_roster:  #chatgpt helped me with part. I had no idea what I was doing wrong. 
-            rand_index = random.randrange(len(self.coupon_cards))
-            self.customer_roster.append(name)
-            self.issued_indices.append(rand_index)
-            return self.coupon_cards[rand_index]
+          #chatgpt helped me with part. I had no idea what I was doing wrong. 
+        rand_index = random.randint(0, len(self.coupon_cards) - 1)
+        self.customer_roster.append(name)
+        self.issued_indices.append(rand_index)
+        return self.coupon_cards[rand_index]
         """ 
     
         Assign name with a random coupon. If name is already assigned a coupon, return it.
@@ -102,7 +104,7 @@ class CouponDispenser:
         # TODO: Implement per instructions 
         round_number = 1  
         while True: 
-            user_input: f" Round {round_number} - Enter a name (or a comma-seperated list), or type 'show' or 'exit': "  
+            user_input =  input(f"Round {round_number} - Enter a name (or a comma-separated list), or type 'show' or 'exit': ")  
             if user_input == "exit":
                  print("Goodbye!")
                  break 
@@ -114,11 +116,11 @@ class CouponDispenser:
             else: 
                  pieces = user_input.split(",") 
                  for p in pieces: 
-                     stripped_text = p.strip() 
-                     if stripped_text == "": 
+                     name = p.strip() #needed to use chat to help me debug this section of my code. I really could not figure it out at all.
+                     if name == "": 
                         continue 
-        self.issue_coupon(name)
-        round_number += 
+                     print(self.issue_coupon(name)) 
+            round_number += 1
             
             
                  
@@ -157,10 +159,10 @@ def main():
     ]
 
     # Uncomment the lines below as you implement each function.
-    # box = CouponDispenser(coupon_cards)
-    # box.distribute_session()
-    # box.tally_distribution()
-    pass
+    box = CouponDispenser(coupon_cards)
+    box.distribute_session()
+    box.tally_distribution()
+    
 
 
 # -----------------------
@@ -440,5 +442,5 @@ def test():
 
 if __name__ == "__main__":
     main()
-    # test()
+    test()
 
